@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using BlockDudes.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlockDudes.Controllers
@@ -12,7 +8,7 @@ namespace BlockDudes.Controllers
     public class UploadFileController : ControllerBase
     {
         [HttpPost]
-        public void UploadFile([FromForm] IFormFile file)
+        public void UploadFile([FromForm] AssetModel model)
         {
 
         }

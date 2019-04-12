@@ -1,6 +1,59 @@
 ﻿@page "/addassets"
 
 <form method="post" enctype="multipart/form-data" action="api/uploadfile">
-    <input type="file" asp-for="Upload" name="file" />
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label>Private key: </label>
+        <input id="title" asp-for="Title" name="Title"/>
+    </div>
+
+    <div>
+        <label>Public key: </label>
+        <input id="descr" asp-for="Description" name="Description"/>
+    </div>
+    <input type="file" asp-for="FormFile" name="FormFile" />
     <input type="submit" />
 </form>
+
+
+@*@page "/addassets"
+@using Models;
+
+<EditForm Model="@exampleModel" action="api/uploadfile">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label>Private key: </label>
+        <InputText id="title" bind-Value="@exampleModel.Title" />
+    </div>
+
+    <div>
+        <label>Public key: </label>
+        <InputText id="descr" bind-Value="@exampleModel.Description" />
+    </div>
+
+    <div>
+        <label>File: </label>
+        <Input type="file" id="FormFile" name="FormFile" />
+    </div>
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+@functions {
+    private AssetModel exampleModel = new AssetModel();
+    private ElementRef fileUpload;
+
+    //private void HandleValidSubmit()
+    //{
+    //    Console.WriteLine("OnValidSubmit");
+    //}
+
+    //private void fileChange()
+    //{
+    //    exampleModel.FormFile = fileUpload;
+    //}
+}*@
