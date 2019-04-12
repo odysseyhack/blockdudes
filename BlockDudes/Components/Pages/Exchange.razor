@@ -1,28 +1,48 @@
-﻿@page "/exchange/{Id}"
+﻿@page "/exchange/{Id:guid}"
 @using BlockDudes.Services
 @using BlockDudes.Models
 @inject AssetService AssetService
 
-<h1>Hello @Id!</h1>
+<h1>Asset @Id!</h1>
 
 <div>
     <label>Title: </label>
-    <input value="@exampleModel.Title" />
+    <input bind="@editModel.Title" />
 </div>
 
 <div>
     <label>Description: </label>
-    <input value="@exampleModel.Description" />
+    <input bind="@editModel.Description" />
+</div>
+
+<div>
+    @if (viewModel.Image != null)
+    {
+        <ImageView Url="@viewModel.Image.StringRepresentation" Width="400" Height="400" />
+    }
+</div>
+
+<div>
+    <button disabled="@(!editModel.IsChanged)" onclick="@OnSubmitButtonClick">Submit changes</button>
 </div>
 
 @functions {
     [Parameter]
-    public string Id { get; set; }
+    public Guid Id { get; set; }
 
-    private AssetViewModel exampleModel = new AssetViewModel();
+    private AssetEditModel editModel;
+    private AssetViewModel viewModel;
 
     protected override void OnInit()
     {
-        exampleModel = AssetService.GetAll().First(it => it.Id == Guid.Parse(Id));
+        viewModel = AssetService.GetAll()
+            .First(it => it.Id == Id);
+        editModel = AssetEditModel.CreateFromViewModel(viewModel);
+    }
+
+    private void OnSubmitButtonClick()
+    {
+        editModel.SetViewModelFields(viewModel);
+        editModel.IsChanged = false;
     }
 }
