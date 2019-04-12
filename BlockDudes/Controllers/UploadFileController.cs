@@ -22,17 +22,28 @@ namespace BlockDudes.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadFile([FromForm] AssetModel model)
         {
-            var viewModel = new AssetViewModel();
-            viewModel.Title = model.Title;
-            viewModel.Description = model.Description;
-
-            using (var memoryStream = new MemoryStream())
+            var viewModel = new AssetViewModel
             {
-                await model.FormFile.CopyToAsync(memoryStream);
+                Id = Guid.NewGuid(),
+                Title = model.Title,
+                Description = model.Description
+            };
 
-                viewModel.File = memoryStream.ToArray();
-                viewModel.Image =
-                    $"data:{model.FormFile.ContentType};base64,{Convert.ToBase64String(viewModel.File)}";
+            if (model.FormFile != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+
+                    await model.FormFile.CopyToAsync(memoryStream);
+                    var imageBytes = memoryStream.ToArray();
+
+                    viewModel.Image = new AssetImage
+                    {
+                        Bytes = imageBytes,
+                        StringRepresentation =
+                            $"data:{model.FormFile.ContentType};base64,{Convert.ToBase64String(imageBytes)}"
+                    };
+                }
             }
 
             _assetService.Add(viewModel);

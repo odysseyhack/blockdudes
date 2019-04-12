@@ -133,3 +133,8 @@ app {
         display: block;
     }
 }
+
+.marketplace-image {
+    background-size: contain;
+    background-repeat: no-repeat;
+}
