@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.JSInterop;
 
 namespace BlockDudes.Services
@@ -15,14 +12,9 @@ namespace BlockDudes.Services
             _jsRuntime = jsRuntime;
         }
 
-        public async Task<string> GetFileData(string fileInputRef)
+        public async Task Alert(string text)
         {
-            return (await _jsRuntime.InvokeAsync<StringHolder>("getFileData", fileInputRef)).Content;
+            await _jsRuntime.InvokeAsync<object>("alert", text);
         }
-    }
-
-    public class StringHolder
-    {
-        public string Content { get; set; }
     }
 }

@@ -23,8 +23,7 @@ namespace BlockDudes
                 .AddNewtonsoftJson();
 
             services.AddRazorComponents();
-
-            services.AddSingleton<WeatherForecastService>();
+            //services.AddSingleton<WeatherForecastService>();
             //services.AddSingleton<JsInteropService, JsInteropService>();
         }
 
@@ -45,7 +44,6 @@ namespace BlockDudes
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseMvc();
 
             app.UseRouting(routes =>
             {
@@ -53,6 +51,8 @@ namespace BlockDudes
                 routes.MapControllers();
                 routes.MapComponentHub<App>("app");
             });
+
+            app.UseMvc();
         }
     }
 }
