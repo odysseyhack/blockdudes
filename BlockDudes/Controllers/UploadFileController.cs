@@ -19,7 +19,7 @@ namespace BlockDudes.Controllers
 
 
         [HttpPost]
-        public async Task UploadFile([FromForm] AssetModel model)
+        public async Task<IActionResult> UploadFile([FromForm] AssetModel model)
         {
             var viewModel = new AssetViewModel();
             viewModel.Title = model.Title;
@@ -33,6 +33,8 @@ namespace BlockDudes.Controllers
             }
 
             _assetService.Add(viewModel);
+
+            return Redirect("/marketplace");
         }
     }
 }
