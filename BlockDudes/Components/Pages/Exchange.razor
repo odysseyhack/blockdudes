@@ -2,6 +2,7 @@
 @using BlockDudes.Services
 @using BlockDudes.Models
 @inject AssetService AssetService
+@inject IAccountsService AccountsService
 
 <table class="table">
     <thead>
@@ -62,8 +63,12 @@
 
     protected override void OnInit()
     {
-        availableAssets = AssetService.GetAll();
-        viewModel = availableAssets
+        var currentAccount = AccountsService.GetCurrentAccount();
+        var allModels = AssetService.GetAll();
+
+        availableAssets = allModels.Where(
+            asset => asset.Address == currentAccount.Address).ToList();
+        viewModel = allModels
             .First(it => it.Id == Id);
     }
 
