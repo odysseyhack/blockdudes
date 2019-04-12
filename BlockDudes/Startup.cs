@@ -10,8 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BlockDudes.Components;
 using BlockDudes.Services;
-using Microsoft.AspNetCore.Components.Builder;
-using Microsoft.JSInterop;
 
 namespace BlockDudes
 {
@@ -31,7 +29,7 @@ namespace BlockDudes
             services.AddSingleton<IWeb3ProviderService, Web3ProviderService>((x) => web3ServiceProvider);
             services.AddSingleton<IAccountsService, AccountsService>((x) => accountsService);
             services.AddSingleton<WeatherForecastService>();
-            //services.AddSingleton<JsInteropService, JsInteropService>();
+            services.AddSingleton<AssetService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,13 +47,14 @@ namespace BlockDudes
             }
 
 
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseMvc();
 
             app.UseRouting(routes =>
             {
                 routes.MapRazorPages();
+                routes.MapControllers();
                 routes.MapComponentHub<App>("app");
             });
         }
