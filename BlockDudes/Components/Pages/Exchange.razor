@@ -8,16 +8,19 @@
         <tr>
             <th>Asset @Id!</th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>Title:</td>
             <td><input bind="@editModel.Title" /></td>
+            <td></td>
         </tr>
         <tr>
             <td>Description:</td>
             <td><input bind="@editModel.Description" /></td>
+            <td></td>
         </tr>
         <tr>
             <td>Image:</td>
@@ -27,24 +30,46 @@
                     <ImageView Url="@viewModel.Image.StringRepresentation" Width="300" Height="200" />
                 }
             </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Change for:</td>
+            <td>
+                <select bind="@AssetForExchange">
+                    <option value="default"></option>
+                    @foreach (var asset in availableAssets)
+                    {
+                        <option value="@asset.Id.ToString()">@asset.Title</option>
+                    }
+                </select>
+            </td>
+            <td>
+                <button onclick="@ExchangeAsset">Exchange</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button disabled="@(!editModel.IsChanged)" onclick="@OnSubmitButtonClick">Submit changes</button>
+            </td>
         </tr>
     </tbody>
 </table>
-
-<div>
-    <button disabled="@(!editModel.IsChanged)" onclick="@OnSubmitButtonClick">Submit changes</button>
-</div>
 
 @functions {
     [Parameter]
     public Guid Id { get; set; }
 
+    private string AssetForExchange { get; set; } = "default";
+
     private AssetEditModel editModel;
     private AssetViewModel viewModel;
 
+    private List<AssetViewModel> availableAssets;
+
     protected override void OnInit()
     {
-        viewModel = AssetService.GetAll()
+        availableAssets = AssetService.GetAll();
+        viewModel = availableAssets
             .First(it => it.Id == Id);
         editModel = AssetEditModel.CreateFromViewModel(viewModel);
     }
@@ -53,5 +78,14 @@
     {
         editModel.SetViewModelFields(viewModel);
         editModel.IsChanged = false;
+    }
+
+    private void ExchangeAsset()
+    {
+        Guid asset;
+        if (AssetForExchange != null && Guid.TryParse(AssetForExchange, out asset))
+        {
+
+        }
     }
 }
