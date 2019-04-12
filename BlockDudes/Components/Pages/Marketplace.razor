@@ -16,6 +16,7 @@ else
             <tr>
                 <th>Title</th>
                 <th>Description</th>
+                
             </tr>
         </thead>
         <tbody>
@@ -26,6 +27,9 @@ else
                     <td>@asset.Description</td>
                     <td>
                         <img src=@asset.Image />
+                    </td>
+                    <td>
+                        <a title="Exchange" href="/exchange/@asset.Id">Exchange</a>
                     </td>
                 </tr>
             }
