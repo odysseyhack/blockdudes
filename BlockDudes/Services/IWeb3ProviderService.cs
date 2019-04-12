@@ -8,7 +8,7 @@ namespace BlockDudes.Services
     {
         string CurrentUrl { get; set; }
         string ChainId { get; }
-        Task<Web3> GetWeb3();
+        Web3 GetWeb3();
         Web3 GetWeb3(Account account);
     }
 }
