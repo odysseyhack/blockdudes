@@ -1,6 +1,7 @@
 ﻿using BlockDudes.Models;
 using BlockDudes.Services;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -30,6 +31,8 @@ namespace BlockDudes.Controllers
                 await model.FormFile.CopyToAsync(memoryStream);
 
                 viewModel.File = memoryStream.ToArray();
+                viewModel.Image =
+                    $"data:{model.FormFile.ContentType};base64,{Convert.ToBase64String(viewModel.File)}";
             }
 
             _assetService.Add(viewModel);
