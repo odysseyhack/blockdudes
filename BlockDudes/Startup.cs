@@ -28,7 +28,6 @@ namespace BlockDudes
 
             services.AddSingleton<IWeb3ProviderService, Web3ProviderService>((x) => web3ServiceProvider);
             services.AddSingleton<IAccountsService, AccountsService>((x) => accountsService);
-            services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<AssetService>();
         }
 
