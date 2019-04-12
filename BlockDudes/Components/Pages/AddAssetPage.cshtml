@@ -1,0 +1,8 @@
+﻿@page "/addassets"
+@model BlockDudes.Components.Pages.AddAssetPageModel
+@{
+}
+<form method="post" enctype="multipart/form-data">
+    <input type="file" asp-for="Upload" />
+    <input type="submit" />
+</form>
