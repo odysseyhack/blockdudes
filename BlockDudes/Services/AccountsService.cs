@@ -1,16 +1,15 @@
 ﻿using BlockDudes.Models;
 using Nethereum.ABI.FunctionEncoding.Attributes;
 using Nethereum.Contracts;
+using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3;
-using DynamicData;
 using Nethereum.Web3.Accounts;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
-using Nethereum.RPC.Eth.DTOs;
-using System.Linq;
 
 namespace BlockDudes.Services
 {
@@ -104,6 +103,11 @@ namespace BlockDudes.Services
                 }
             }
             throw new ArgumentException($@"Account address: {functionMessage.FromAddress}, not found", nameof(functionMessage));
+        }
+
+        public AccountInfo GetCurrentAccount()
+        {
+            return _account;
         }
     }
 

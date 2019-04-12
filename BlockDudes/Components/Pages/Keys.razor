@@ -6,25 +6,31 @@
 @using Nethereum.Web3;
 @inject IAccountsService AccountService
 
-<EditForm Model="@exampleModel" OnValidSubmit="@HandleValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+    <EditForm Model="@exampleModel" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
-    <div>
-        <label>Private key: </label>
-        <InputText id="name" bind-Value="@exampleModel.PrivateKey" />
-    </div>
+        <div>
+            <label>Private key: </label>
+            <InputText id="name" bind-Value="@exampleModel.PrivateKey" />
+        </div>
 
-    <button type="submit">Login</button>
+        <button type="submit">Login</button>
 
-    <button onclick="@GetBalance">Get My Balance</button>
-</EditForm>
+        <button onclick="@GetBalance">Get My Balance</button>
 
-<div>@balance</div>
+        <div>@balance</div>
+
+        <button onclick="@GetCurrentAccount">Get Current Account Address</button>
+
+        <div>@address</div>
+    </EditForm>
+
 
 @functions {
     private KeysModel exampleModel = new KeysModel();
     decimal balance;
+    string address;
 
     public void HandleValidSubmit()
     {
@@ -34,5 +40,10 @@
     public void GetBalance()
     {
         balance = AccountService.GetAccountEtherBalanceAsync().Result;
+    }
+
+    public void GetCurrentAccount()
+    {
+        address = AccountService.GetCurrentAccount().Address;
     }
 }
