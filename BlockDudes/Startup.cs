@@ -25,7 +25,7 @@ namespace BlockDudes
             services.AddRazorComponents();
 
             services.AddSingleton<WeatherForecastService>();
-            //services.AddSingleton<JsInteropService, JsInteropService>();
+            services.AddSingleton<AssetService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
