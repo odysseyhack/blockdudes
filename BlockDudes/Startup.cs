@@ -10,8 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BlockDudes.Components;
 using BlockDudes.Services;
-using Microsoft.AspNetCore.Components.Builder;
-using Microsoft.JSInterop;
 
 namespace BlockDudes
 {
@@ -45,13 +43,14 @@ namespace BlockDudes
             }
 
 
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseMvc();
 
             app.UseRouting(routes =>
             {
                 routes.MapRazorPages();
+                routes.MapControllers();
                 routes.MapComponentHub<App>("app");
             });
         }

@@ -1,24 +1,6 @@
-@page "/addassets_old"
-@using BlockDudes.Services
-@using Microsoft.AspNetCore.Components
-@*@inject JsInteropService JsInteropService*@
-@inject IJSRuntime JSRuntime
+﻿@page "/addassets"
 
-<h1>Counter</h1>
-
-<input type="file" onchange="@AddAsset" ref="fileUpload" id="fileUpload" />
-
-@functions {
-    private ElementRef fileUpload;
-
-    public async Task AddAsset()
-    {
-        var res =
-            (await JSRuntime.InvokeAsync<StringHolder>("getFileData", fileUpload)).Content;
-        Console.WriteLine(res);
-        //var data = await JsInteropService.GetFileData("fileUpload");
-        return;
-        //var response = await Http.PostAsync("/api/upload", new ByteArrayContent(Convert.FromBase64String(data)));
-        //var fileTempName = await response.Content.ReadAsStringAsync();
-    }
-}
+<form method="post" enctype="multipart/form-data" action="api/uploadfile">
+    <input type="file" asp-for="Upload" name="file" />
+    <input type="submit" />
+</form>
