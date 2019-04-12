@@ -1,0 +1,83 @@
+﻿@page "/exchange/{Id:guid}"
+@using BlockDudes.Services
+@using BlockDudes.Models
+@inject AssetService AssetService
+@inject IAccountsService AccountsService
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Asset @Id!</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Title:</td>
+            <td><input disabled bind="@viewModel.Title" /></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td><input disabled bind="@viewModel.Description" /></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Image:</td>
+            <td>
+                @if (viewModel.Image != null)
+                {
+                    <ImageView Url="@viewModel.Image.StringRepresentation" Width="300" Height="200" />
+                }
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Change for:</td>
+            <td>
+                <select bind="@AssetForExchange">
+                    <option value="default"></option>
+                    @foreach (var asset in availableAssets)
+                    {
+                        <option value="@asset.Id.ToString()">@asset.Title</option>
+                    }
+                </select>
+            </td>
+            <td>
+                <button onclick="@ExchangeAsset">Exchange</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@functions {
+    [Parameter]
+    public Guid Id { get; set; }
+
+    private string AssetForExchange { get; set; } = "default";
+
+    private AssetViewModel viewModel;
+
+    private List<AssetViewModel> availableAssets;
+
+    protected override void OnInit()
+    {
+        var currentAccount = AccountsService.GetCurrentAccount();
+        var allModels = AssetService.GetAll();
+
+        availableAssets = allModels.Where(
+            asset => asset.Address == currentAccount.Address).ToList();
+        viewModel = allModels
+            .First(it => it.Id == Id);
+    }
+
+    private void ExchangeAsset()
+    {
+        Guid asset;
+        if (AssetForExchange != null && Guid.TryParse(AssetForExchange, out asset))
+        {
+
+        }
+    }
+}

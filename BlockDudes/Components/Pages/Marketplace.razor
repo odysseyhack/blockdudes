@@ -16,6 +16,8 @@ else
             <tr>
                 <th>Title</th>
                 <th>Description</th>
+                <th>Image</th>
+                <th>Exchange</th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +26,15 @@ else
                 <tr>
                     <td>@asset.Title</td>
                     <td>@asset.Description</td>
+                    <td>
+                        @if (asset.Image != null)
+                        {
+                            <ImageView Url="@asset.Image.StringRepresentation" Width="200" Height="200"/>
+                        }
+                    </td>
+                    <td>
+                        <a title="Exchange" href="/exchange/@asset.Id">Exchange</a>
+                    </td>
                 </tr>
             }
         </tbody>

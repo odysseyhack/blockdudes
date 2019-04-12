@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace BlockDudes.Models
 {
-    public class KeysModel
+    public class AssetImage
     {
-        public string PrivateKey { get; set; }
+        public byte[] Bytes { get; set; }
+        public string StringRepresentation { get; set; }
     }
 }
