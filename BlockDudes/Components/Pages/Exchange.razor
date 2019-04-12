@@ -14,12 +14,12 @@
     <tbody>
         <tr>
             <td>Title:</td>
-            <td><input bind="@editModel.Title" /></td>
+            <td><input disabled bind="@viewModel.Title" /></td>
             <td></td>
         </tr>
         <tr>
             <td>Description:</td>
-            <td><input bind="@editModel.Description" /></td>
+            <td><input disabled bind="@viewModel.Description" /></td>
             <td></td>
         </tr>
         <tr>
@@ -47,11 +47,6 @@
                 <button onclick="@ExchangeAsset">Exchange</button>
             </td>
         </tr>
-        <tr>
-            <td>
-                <button disabled="@(!editModel.IsChanged)" onclick="@OnSubmitButtonClick">Submit changes</button>
-            </td>
-        </tr>
     </tbody>
 </table>
 
@@ -61,7 +56,6 @@
 
     private string AssetForExchange { get; set; } = "default";
 
-    private AssetEditModel editModel;
     private AssetViewModel viewModel;
 
     private List<AssetViewModel> availableAssets;
@@ -71,13 +65,6 @@
         availableAssets = AssetService.GetAll();
         viewModel = availableAssets
             .First(it => it.Id == Id);
-        editModel = AssetEditModel.CreateFromViewModel(viewModel);
-    }
-
-    private void OnSubmitButtonClick()
-    {
-        editModel.SetViewModelFields(viewModel);
-        editModel.IsChanged = false;
     }
 
     private void ExchangeAsset()
