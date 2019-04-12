@@ -13,8 +13,6 @@ namespace BlockDudes.Models
 
         public string Description { get; set; }
 
-        public Byte[] File { get; set; }
-
-        public string Image { get; set; }
+        public AssetImage Image { get; set; }
     }
 }

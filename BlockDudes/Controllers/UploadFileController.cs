@@ -29,10 +29,14 @@ namespace BlockDudes.Controllers
             using (var memoryStream = new MemoryStream())
             {
                 await model.FormFile.CopyToAsync(memoryStream);
+                var imageBytes = memoryStream.ToArray();
 
-                viewModel.File = memoryStream.ToArray();
-                viewModel.Image =
-                    $"data:{model.FormFile.ContentType};base64,{Convert.ToBase64String(viewModel.File)}";
+                viewModel.Image = new AssetImage
+                {
+                    Bytes = imageBytes,
+                    StringRepresentation =
+                        $"data:{model.FormFile.ContentType};base64,{Convert.ToBase64String(imageBytes)}"
+                };
             }
 
             _assetService.Add(viewModel);

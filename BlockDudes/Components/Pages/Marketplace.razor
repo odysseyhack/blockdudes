@@ -16,6 +16,7 @@ else
             <tr>
                 <th>Title</th>
                 <th>Description</th>
+                <th>Image</th>
             </tr>
         </thead>
         <tbody>
@@ -25,7 +26,10 @@ else
                     <td>@asset.Title</td>
                     <td>@asset.Description</td>
                     <td>
-                        <img src=@asset.Image />
+                        <div 
+                             class="marketplace-image"
+                             style="background-image: url(@asset.Image.StringRepresentation)">
+                        </div>
                     </td>
                 </tr>
             }
