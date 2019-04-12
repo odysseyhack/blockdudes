@@ -1,0 +1,447 @@
+{
+  "contractName": "IERC1155",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_operator",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_from",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "_value",
+          "type": "uint256"
+        }
+      ],
+      "name": "TransferSingle",
+      "type": "event"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.4+commit.9549d8ff\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_operator\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_to\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"_id\",\"type\":\"uint256\"},{\"indexed\":false,\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"TransferSingle\",\"type\":\"event\"}],\"devdoc\":{\"details\":\"See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1155.md\\r Note: The ERC-165 identifier for this interface is 0xd9b67a26.\\r\",\"methods\":{},\"title\":\"ERC-1155 Multi Token Standard\\r\"},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/C/Projects/Finturi/BlockDudes/Eth/contracts/ERC721/IERC1155.sol\":\"IERC1155\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Projects/Finturi/BlockDudes/Eth/contracts/ERC721/IERC1155.sol\":{\"keccak256\":\"0x4fb6ce8a524167ef765ae7767a103b9bc89b251af26391192aa609affe17ccec\",\"urls\":[\"bzzr://fc2ac5c90f8d00ec139b07466d705f0f7d5b6a40ad682190758a80548faeb28a\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3fe6080604052600080fdfea165627a7a72305820a4576a55003501614298b2dab439799b83fbc70afb490b2e6ee19853536b9b330029",
+  "deployedBytecode": "0x6080604052600080fdfea165627a7a72305820a4576a55003501614298b2dab439799b83fbc70afb490b2e6ee19853536b9b330029",
+  "sourceMap": "223:874:1:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;223:874:1;;;;;;;",
+  "deployedSourceMap": "223:874:1:-;;;;;",
+  "source": "pragma solidity ^0.5.4;\r\n\r\n/**\r\n    @title ERC-1155 Multi Token Standard\r\n    @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1155.md\r\n    Note: The ERC-165 identifier for this interface is 0xd9b67a26.\r\n */\r\ninterface IERC1155 {\r\n    /**\r\n        @dev Either TransferSingle or TransferBatch MUST emit when tokens are transferred, including zero value transfers as well as minting or burning.\r\n        Operator will always be msg.sender.\r\n        Either event from address `0x0` signifies a minting operation.\r\n        An event to address `0x0` signifies a burning or melting operation.\r\n        The total value transferred from address 0x0 minus the total value transferred to 0x0 may be used by clients and exchanges to be added to the \"circulating supply\" for a given token ID.\r\n        To define a token ID with no initial balance, the contract SHOULD emit the TransferSingle event from `0x0` to `0x0`, with the token creator as `_operator`.\r\n    */\r\n    event TransferSingle(address indexed _operator, address indexed _from, address indexed _to, uint256 _id, uint256 _value);\r\n}",
+  "sourcePath": "C:/Projects/Finturi/BlockDudes/Eth/contracts/ERC721/IERC1155.sol",
+  "ast": {
+    "absolutePath": "/C/Projects/Finturi/BlockDudes/Eth/contracts/ERC721/IERC1155.sol",
+    "exportedSymbols": {
+      "IERC1155": [
+        94
+      ]
+    },
+    "id": 95,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 81,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".4"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:1"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": "@title ERC-1155 Multi Token Standard\r\n@dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1155.md\r\nNote: The ERC-165 identifier for this interface is 0xd9b67a26.\r",
+        "fullyImplemented": true,
+        "id": 94,
+        "linearizedBaseContracts": [
+          94
+        ],
+        "name": "IERC1155",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "anonymous": false,
+            "documentation": "@dev Either TransferSingle or TransferBatch MUST emit when tokens are transferred, including zero value transfers as well as minting or burning.\r\nOperator will always be msg.sender.\r\nEither event from address `0x0` signifies a minting operation.\r\nAn event to address `0x0` signifies a burning or melting operation.\r\nThe total value transferred from address 0x0 minus the total value transferred to 0x0 may be used by clients and exchanges to be added to the \"circulating supply\" for a given token ID.\r\nTo define a token ID with no initial balance, the contract SHOULD emit the TransferSingle event from `0x0` to `0x0`, with the token creator as `_operator`.\r",
+            "id": 93,
+            "name": "TransferSingle",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 92,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 83,
+                  "indexed": true,
+                  "name": "_operator",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 93,
+                  "src": "994:25:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 82,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "994:7:1",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 85,
+                  "indexed": true,
+                  "name": "_from",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 93,
+                  "src": "1021:21:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 84,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1021:7:1",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 87,
+                  "indexed": true,
+                  "name": "_to",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 93,
+                  "src": "1044:19:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 86,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1044:7:1",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 89,
+                  "indexed": false,
+                  "name": "_id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 93,
+                  "src": "1065:11:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 88,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1065:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 91,
+                  "indexed": false,
+                  "name": "_value",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 93,
+                  "src": "1078:14:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 90,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1078:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "993:100:1"
+            },
+            "src": "973:121:1"
+          }
+        ],
+        "scope": 95,
+        "src": "223:874:1"
+      }
+    ],
+    "src": "0:1097:1"
+  },
+  "legacyAST": {
+    "absolutePath": "/C/Projects/Finturi/BlockDudes/Eth/contracts/ERC721/IERC1155.sol",
+    "exportedSymbols": {
+      "IERC1155": [
+        94
+      ]
+    },
+    "id": 95,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 81,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".4"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:1"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": "@title ERC-1155 Multi Token Standard\r\n@dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1155.md\r\nNote: The ERC-165 identifier for this interface is 0xd9b67a26.\r",
+        "fullyImplemented": true,
+        "id": 94,
+        "linearizedBaseContracts": [
+          94
+        ],
+        "name": "IERC1155",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "anonymous": false,
+            "documentation": "@dev Either TransferSingle or TransferBatch MUST emit when tokens are transferred, including zero value transfers as well as minting or burning.\r\nOperator will always be msg.sender.\r\nEither event from address `0x0` signifies a minting operation.\r\nAn event to address `0x0` signifies a burning or melting operation.\r\nThe total value transferred from address 0x0 minus the total value transferred to 0x0 may be used by clients and exchanges to be added to the \"circulating supply\" for a given token ID.\r\nTo define a token ID with no initial balance, the contract SHOULD emit the TransferSingle event from `0x0` to `0x0`, with the token creator as `_operator`.\r",
+            "id": 93,
+            "name": "TransferSingle",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 92,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 83,
+                  "indexed": true,
+                  "name": "_operator",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 93,
+                  "src": "994:25:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 82,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "994:7:1",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 85,
+                  "indexed": true,
+                  "name": "_from",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 93,
+                  "src": "1021:21:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 84,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1021:7:1",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 87,
+                  "indexed": true,
+                  "name": "_to",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 93,
+                  "src": "1044:19:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 86,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1044:7:1",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 89,
+                  "indexed": false,
+                  "name": "_id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 93,
+                  "src": "1065:11:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 88,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1065:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 91,
+                  "indexed": false,
+                  "name": "_value",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 93,
+                  "src": "1078:14:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 90,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1078:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "993:100:1"
+            },
+            "src": "973:121:1"
+          }
+        ],
+        "scope": 95,
+        "src": "223:874:1"
+      }
+    ],
+    "src": "0:1097:1"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.4+commit.9549d8ff.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.6",
+  "updatedAt": "2019-04-12T19:08:45.295Z",
+  "devdoc": {
+    "details": "See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1155.md\r Note: The ERC-165 identifier for this interface is 0xd9b67a26.\r",
+    "methods": {},
+    "title": "ERC-1155 Multi Token Standard\r"
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}
