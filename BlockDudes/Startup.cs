@@ -23,8 +23,9 @@ namespace BlockDudes
                 .AddNewtonsoftJson();
 
             services.AddRazorComponents();
-            //services.AddSingleton<WeatherForecastService>();
-            //services.AddSingleton<JsInteropService, JsInteropService>();
+
+            services.AddSingleton<WeatherForecastService>();
+            services.AddSingleton<AssetService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +45,7 @@ namespace BlockDudes
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseMvc();
 
             app.UseRouting(routes =>
             {
@@ -51,8 +53,6 @@ namespace BlockDudes
                 routes.MapControllers();
                 routes.MapComponentHub<App>("app");
             });
-
-            app.UseMvc();
         }
     }
 }
