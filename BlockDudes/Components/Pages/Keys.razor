@@ -1,0 +1,28 @@
+﻿@page "/keys"
+@using Models;
+
+    <EditForm Model="@exampleModel" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div>
+            <label>Private key: </label>
+            <InputText id="name" bind-Value="@exampleModel.PrivateKey" />
+        </div>
+
+        <div>
+            <label>Public key: </label>
+            <InputText id="name" bind-Value="@exampleModel.PublicKey" />
+        </div>
+
+        <button type="submit">Submit</button>
+    </EditForm>
+
+@functions {
+    private KeysModel exampleModel = new KeysModel();
+
+    private void HandleValidSubmit()
+    {
+        Console.WriteLine("OnValidSubmit");
+    }
+}
