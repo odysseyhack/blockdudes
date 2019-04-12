@@ -3,24 +3,33 @@
 @using BlockDudes.Models
 @inject AssetService AssetService
 
-<h1>Asset @Id!</h1>
-
-<div>
-    <label>Title: </label>
-    <input bind="@editModel.Title" />
-</div>
-
-<div>
-    <label>Description: </label>
-    <input bind="@editModel.Description" />
-</div>
-
-<div>
-    @if (viewModel.Image != null)
-    {
-        <ImageView Url="@viewModel.Image.StringRepresentation" Width="400" Height="400" />
-    }
-</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Asset @Id!</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Title:</td>
+            <td><input bind="@editModel.Title" /></td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td><input bind="@editModel.Description" /></td>
+        </tr>
+        <tr>
+            <td>Image:</td>
+            <td>
+                @if (viewModel.Image != null)
+                {
+                    <ImageView Url="@viewModel.Image.StringRepresentation" Width="300" Height="200" />
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 <div>
     <button disabled="@(!editModel.IsChanged)" onclick="@OnSubmitButtonClick">Submit changes</button>
