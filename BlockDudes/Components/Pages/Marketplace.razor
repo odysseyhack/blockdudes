@@ -1,10 +1,11 @@
 @page "/marketplace"
 @using BlockDudes.Services
-@*@inject WeatherForecastService ForecastService*@
+@using BlockDudes.Models
+@inject AssetService AssetService
 
 <h1>Marketplace</h1>
 
-@*@if (forecasts == null)
+@if (assets == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -13,31 +14,27 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
+                <th>Title</th>
+                <th>Description</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in forecasts)
+            @foreach (var asset in assets)
             {
                 <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
+                    <td>@asset.Title</td>
+                    <td>@asset.Description</td>
                 </tr>
             }
         </tbody>
     </table>
-}*@
+}
 
 @functions {
-    //WeatherForecast[] forecasts;
+    List<AssetViewModel> assets;
 
-    //protected override async Task OnInitAsync()
-    //{
-    //    forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
-    //}
+    protected override void OnInit()
+    {
+        assets = AssetService.GetAll();
+    }
 }

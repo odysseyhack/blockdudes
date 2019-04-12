@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace BlockDudes.Services
 {
-   
     public class AssetService
     {
         private readonly ConcurrentBag<AssetViewModel> _assets = new ConcurrentBag<AssetViewModel>();
