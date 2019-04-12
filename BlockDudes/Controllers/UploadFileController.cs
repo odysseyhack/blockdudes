@@ -23,6 +23,7 @@ namespace BlockDudes.Controllers
         public async Task<IActionResult> UploadFile([FromForm] AssetModel model)
         {
             var viewModel = new AssetViewModel();
+            viewModel.Id = Guid.NewGuid();
             viewModel.Title = model.Title;
             viewModel.Description = model.Description;
 

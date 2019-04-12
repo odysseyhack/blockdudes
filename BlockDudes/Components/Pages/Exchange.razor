@@ -1,0 +1,28 @@
+﻿@page "/exchange/{Id}"
+@using BlockDudes.Services
+@using BlockDudes.Models
+@inject AssetService AssetService
+
+<h1>Hello @Id!</h1>
+
+<div>
+    <label>Title: </label>
+    <input value="@exampleModel.Title" />
+</div>
+
+<div>
+    <label>Description: </label>
+    <input value="@exampleModel.Description" />
+</div>
+
+@functions {
+    [Parameter]
+    public string Id { get; set; }
+
+    private AssetViewModel exampleModel = new AssetViewModel();
+
+    protected override void OnInit()
+    {
+        exampleModel = AssetService.GetAll().First(it => it.Id == Guid.Parse(Id));
+    }
+}
