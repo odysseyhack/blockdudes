@@ -12,10 +12,12 @@ namespace BlockDudes.Controllers
     public class UploadFileController : ControllerBase
     {
         private readonly AssetService _assetService;
+        private readonly IAccountsService _accountsService;
 
-        public UploadFileController(AssetService assetService)
+        public UploadFileController(AssetService assetService, IAccountsService accountsService)
         {
             _assetService = assetService;
+            _accountsService = accountsService;
         }
 
 
@@ -26,7 +28,8 @@ namespace BlockDudes.Controllers
             {
                 Id = Guid.NewGuid(),
                 Title = model.Title,
-                Description = model.Description
+                Description = model.Description,
+                Address = _accountsService.GetCurrentAccount().Address
             };
 
             if (model.FormFile != null)
