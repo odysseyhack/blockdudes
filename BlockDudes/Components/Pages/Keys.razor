@@ -15,12 +15,9 @@
         <InputText id="name" bind-Value="@exampleModel.PrivateKey" />
     </div>
 
-    <div>
-        <label>Address: </label>
-        <InputText id="name" bind-Value="@exampleModel.Address" />
-    </div>
+    <button type="submit">Login</button>
 
-    <button type="submit">Submit</button>
+    <button onclick="@GetBalance">Get My Balance</button>
 </EditForm>
 
 <div>@balance</div>
@@ -31,6 +28,11 @@
 
     public void HandleValidSubmit()
     {
-        balance = AccountService.GetAccountEtherBalanceAsync(exampleModel.PrivateKey);
+        AccountService.AddAccount(exampleModel.PrivateKey);
+    }
+
+    public void GetBalance()
+    {
+        balance = AccountService.GetAccountEtherBalanceAsync().Result;
     }
 }
