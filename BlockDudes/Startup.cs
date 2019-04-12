@@ -19,16 +19,20 @@ namespace BlockDudes
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            var web3ServiceProvider = new Web3ProviderService();
+            var accountsService = new AccountsService(web3ServiceProvider);
             services.AddMvc()
                 .AddNewtonsoftJson();
 
             services.AddRazorComponents();
 
+            services.AddSingleton<IWeb3ProviderService, Web3ProviderService>((x) => web3ServiceProvider);
+            services.AddSingleton<IAccountsService, AccountsService>((x) => accountsService);
             services.AddSingleton<AssetService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, 
+        public void Configure(IApplicationBuilder app,
             IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
