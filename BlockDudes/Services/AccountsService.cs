@@ -113,29 +113,28 @@ namespace BlockDudes.Services
             return _account;
         }
 
+        private const string ContractAddress = "0x910a0ffd8bc104b93384a198e8e671bbc390cf7b";
+
         public async Task UploadAssetAsync(string fileHash, string descriptionHash)
         {
-            const string contractAddress = "0x6fBb44Fc86BA6c6D2D63D44794e6F1B1da3B1894";    //todo
-
             var web3 = _web3ProviderService.GetWeb3();
             var address = _account.Address;
 
-            var transferHandler = web3.Eth.GetContractTransactionHandler<UploadFunction>();
+            var uploadHandler = web3.Eth.GetContractTransactionHandler<UploadFunction>();
 
             var upload = new UploadFunction
             {
+                FromAddress = address,
                 To = address,
-                FileHash = new HexBigInteger(fileHash),
-                DescriptionHash = new HexBigInteger(descriptionHash),
+                FileHash = fileHash,
+                DescriptionHash = descriptionHash,
             };
 
-            await transferHandler.SendRequestAndWaitForReceiptAsync(contractAddress, upload);
+            await uploadHandler.SendRequestAndWaitForReceiptAsync(ContractAddress, upload);
         }
 
         public async Task ExchangeAssetsAsync(string accountAddress, int tokenId1, int tokenId2)
         {
-            const string contractAddress = "0x6fBb44Fc86BA6c6D2D63D44794e6F1B1da3B1894";    //todo
-
             var web3 = _web3ProviderService.GetWeb3();
             var address = _account.Address;
 
@@ -149,16 +148,30 @@ namespace BlockDudes.Services
                 TokenId2 = tokenId2
             };
 
-            await exchangeHandler.SendRequestAndWaitForReceiptAsync(contractAddress, exchange);
+            await exchangeHandler.SendRequestAndWaitForReceiptAsync(ContractAddress, exchange);
         }
-        public Task<int> GetAllItemsLength()
+        public async Task<int> GetAllItemsLength()
         {
-            throw new NotImplementedException();
+            var web3 = _web3ProviderService.GetWeb3();
+            var getItemsCountHandler = web3.Eth.GetContractQueryHandler<GetAllItemsLengthFunction>();
+            var count = await getItemsCountHandler.QueryAsync<int>(ContractAddress, new GetAllItemsLengthFunction());
+            return count;
         }
 
-        public Task<Asset> GetItem(int index)
+        public async Task<Asset> GetItem(int index)
         {
-            throw new NotImplementedException();
+            var web3 = _web3ProviderService.GetWeb3();
+
+            var getItemHandler = web3.Eth.GetContractQueryHandler<GetItemFunction>();
+
+            var getItem = new GetItemFunction
+            {
+                Index = index
+            };
+
+            var item = await getItemHandler.QueryDeserializingToObjectAsync<Asset>(getItem, ContractAddress);
+
+            return item;
         }
     }
 

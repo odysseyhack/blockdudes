@@ -3,7 +3,7 @@
 namespace BlockDudes.Blockchain.Models
 {
     [FunctionOutput]
-    public class Asset
+    public class Asset : IFunctionOutputDTO
     {
         [Parameter("uint256", "tokenId", 1)]
         public int TokenId { get; set; }

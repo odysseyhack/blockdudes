@@ -10,10 +10,10 @@ namespace BlockDudes.Blockchain.Functions
         [Parameter("address", "to", 1)]
         public string To { get; set; }
 
-        [Parameter("bytes32", "fileHash", 2)]
-        public HexBigInteger FileHash { get; set; }
+        [Parameter("string", "fileHash", 2)]
+        public string FileHash { get; set; }
 
-        [Parameter("bytes32", "descriptionHash", 3)]
-        public HexBigInteger DescriptionHash { get; set; }
+        [Parameter("string", "descriptionHash", 3)]
+        public string DescriptionHash { get; set; }
     }
 }
