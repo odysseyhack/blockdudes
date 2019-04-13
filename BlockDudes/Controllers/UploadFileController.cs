@@ -13,11 +13,19 @@ namespace BlockDudes.Controllers
     {
         private readonly AssetService _assetService;
         private readonly IAccountsService _accountsService;
+        private readonly IHashService _hashService;
+        private readonly IIpfsProviderService _ipfsProviderService;
 
-        public UploadFileController(AssetService assetService, IAccountsService accountsService)
+        public UploadFileController(
+            AssetService assetService,
+            IAccountsService accountsService,
+            IHashService hashService,
+            IIpfsProviderService ipfsProviderService)
         {
             _assetService = assetService;
             _accountsService = accountsService;
+            _hashService = hashService;
+            _ipfsProviderService = ipfsProviderService;
         }
 
 
@@ -39,6 +47,8 @@ namespace BlockDudes.Controllers
 
                     await model.FormFile.CopyToAsync(memoryStream);
                     var imageBytes = memoryStream.ToArray();
+                    var imageHash = _hashService.GetHash(imageBytes);
+                    await _ipfsProviderService.AddAsync(imageHash, imageBytes);
 
                     viewModel.Image = new AssetImage
                     {

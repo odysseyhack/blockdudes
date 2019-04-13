@@ -1,7 +1,7 @@
 ﻿namespace BlockDudes.Services
 {
-    interface IHashService
+    public interface IHashService
     {
-        byte[] GetHash(byte[] input);
+        string GetHash(byte[] input);
     }
 }

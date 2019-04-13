@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="DynamicData" Version="6.7.1.2534" />
+    <PackageReference Include="Ipfs.Http.Client" Version="0.27.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Server" Version="3.0.0-preview3-19153-02" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0-preview3-19153-02" />
     <PackageReference Include="Nethereum.Web3" Version="3.2.0" />
