@@ -57,17 +57,8 @@ namespace BlockDudes.Controllers
                     var imageDescription = await _ipfsProviderService.GetTextAsync(imageDescriptionHash);
 
                     var imageDescriptionModel = JsonConvert.DeserializeObject<AssetViewModel>(imageDescription);
-
-                    viewModel.Image = new AssetImage
-                    {
-                        Bytes = imageBytes,
-                        StringRepresentation =
-                            $"data:{model.FormFile.ContentType};base64,{Convert.ToBase64String(imageBytes)}"
-                    };
                 }
             }
-
-            _assetService.Add(viewModel);
 
             return Redirect("/marketplace");
         }

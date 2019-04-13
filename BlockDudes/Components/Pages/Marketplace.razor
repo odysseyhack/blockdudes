@@ -21,10 +21,7 @@ else
             {
                 <div class="col-6">
                     <div class="card">
-                        @if (asset.Image != null)
-                        {
-                            <ImageView Class="card-img-top" Url="@asset.Image.StringRepresentation" />
-                        }
+                        <ImageView Class="card-img-top" Url="@asset.Link" />
                         <div class="card-body">
                             <h5 class="card-title">@asset.Title</h5>
                             <p class="card-text">@asset.Description</p>
@@ -40,8 +37,8 @@ else
 @functions {
     List<AssetViewModel> assets;
 
-    protected override void OnInit()
+    protected override async Task OnInitAsync()
     {
-        assets = AssetService.GetAll();
+        assets = await AssetService.GetAll();
     }
 }

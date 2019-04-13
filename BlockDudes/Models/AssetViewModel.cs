@@ -16,6 +16,6 @@ namespace BlockDudes.Models
         public DateTime UploadTime { get; set; }
 
         [JsonIgnore]
-        public AssetImage Image { get; set; }
+        public string Link { get; set; }
     }
 }

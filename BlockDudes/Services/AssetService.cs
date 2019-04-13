@@ -1,22 +1,54 @@
 ﻿using BlockDudes.Models;
-using System.Collections.Concurrent;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace BlockDudes.Services
 {
     public class AssetService
     {
-        private readonly ConcurrentBag<AssetViewModel> _assets = new ConcurrentBag<AssetViewModel>();
+        private readonly IAccountsService _accountsService;
+        private readonly IIpfsProviderService _ipfsProviderService;
 
-        public List<AssetViewModel> GetAll()
+        public AssetService(
+            IAccountsService accountsService,
+            IIpfsProviderService ipfsProviderService
+        )
         {
-            return _assets.ToList();
+            _accountsService = accountsService;
+            _ipfsProviderService = ipfsProviderService;
         }
 
-        public void Add(AssetViewModel model)
+        public async Task<List<AssetViewModel>> GetAll()
         {
-            _assets.Add(model);
+            var result = new List<AssetViewModel>();
+            var length = await _accountsService.GetAllItemsLength();
+            for (int i = 0; i < length; i++)
+            {
+                try
+                {
+                    var model = await GetViewModelByIndex(i);
+
+                    result.Add(model);
+                } catch (Exception ex)
+                {
+                    // ignore it
+                }
+            }
+            return result;
+        }
+
+        private async Task<AssetViewModel> GetViewModelByIndex(int index)
+        {
+            var item = await _accountsService.GetItem(index);
+
+            var descriptionJson = await _ipfsProviderService.GetTextAsync(item.DescriptionHash);
+
+            var model = JsonConvert.DeserializeObject<AssetViewModel>(descriptionJson);
+            model.Link = $"https://ipfs.infura.io/ipfs/{item.FileHash}";
+
+            return model;
         }
     }
 }
