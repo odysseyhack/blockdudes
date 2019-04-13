@@ -1,51 +1,57 @@
 pragma solidity ^0.5.4;
+pragma experimental ABIEncoderV2;
 
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "openzeppelin-solidity/contracts/utils/Address.sol";
 import "openzeppelin-solidity/contracts/introspection/IERC165.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
-// import "./IERC721Receiver.sol";
 
 // A sample implementation of core ERC1155 function.
 contract ERC721Dudes is ERC721
 {
+    struct ItemStruct {
+        uint256 tokenId;
+        bytes32 fileHash;
+        bytes32 descriptionHash;
+        address owner;
+    }
+
     using SafeMath for uint256;
     using Address for address;
 
-    bytes4 constant public ERC1155_RECEIVED = 0xf23a6e61;
-    bytes4 constant public ERC1155_BATCH_RECEIVED = 0xbc197c81;
-
     // owner => (operator => approved)
     mapping (address => mapping(address => bool)) internal operatorApproval;
+    //mapping(address => UserStruct) ownedItems;
+    mapping(uint256 => uint) itemIndexes;
 
-event TransferSingle(address indexed _operator, address indexed _from, address indexed _to, uint256 _id, uint256 _value);
+    ItemStruct[] allItems;
+    uint allItemsLength;
+    uint256 nonse;
 
-/////////////////////////////////////////// ERC1155 //////////////////////////////////////////////
-    /**
-        @notice Transfers value amount of an _id from the _from address to the _to addresses specified. Each parameter array should be the same length, with each index correlating.
-        @dev MUST emit TransferSingle event on success.
-        Caller must be approved to manage the _from account's tokens (see isApprovedForAll).
-        MUST Throw if `_to` is the zero address.
-        MUST Throw if `_id` is not a valid token ID.
-        MUST Throw on any other error.
-        When transfer is complete, this function MUST check if `_to` is a smart contract (code size > 0). If so, it MUST call `onERC1155Received` on `_to`
-        and revert if the return value is not `bytes4(keccak256("onERC1155Received(address,address,uint256,uint256,bytes)"))`.
-        @param _from    Source addresses
-        @param _to      Target addresses
-        @param _id      ID of the token type
-        @param _value   Transfer amount
-        @param _data    Additional data with no specified format, sent in call to `_to`
-    */
-    // function safeTransferFrom(address _from, address _to, uint256 _id, uint256 _value, bytes calldata _data) external {
+    function safeTransferFrom(address _from, address _to, uint256 _id) public {
 
-    //     require(_to != address(0x0), "_to must be non-zero.");
-    //     require(_from == msg.sender || operatorApproval[_from][msg.sender] == true, "Need operator approval for 3rd party transfers.");
+        require(_to != address(0x0), "_to must be non-zero.");
+        //require(_from == msg.sender || operatorApproval[_from][msg.sender] == true, "Need operator approval for 3rd party transfers.");
 
+        
+        uint index = itemIndexes[_id];
 
-    //     emit TransferSingle(msg.sender, _from, _to, _id, _value);
+        allItems[index].owner = _to;
+    }
 
-    //     require(IERC721Receiver(_to).onERC721Received(msg.sender, _from, _id, _data) == ERC1155_RECEIVED, "Receiver contract did not accept the transfer.");
-    // }
+    function exchangeTokens(address _user1, address _user2, uint256 _id1, uint256 _id2) public {
+
+        safeTransferFrom(_user1, _user2, _id1);
+        safeTransferFrom(_user2, _user1, _id2);
+    }
+
+    function getItem(uint index) public view returns (ItemStruct memory) {
+        return allItems[index];
+    }
+
+    function getAllItemsLength() public view returns (uint) {
+        return allItemsLength;
+    }
 
     /**
         @notice Enable or disable approval for a third party ("operator") to manage all of the caller's tokens.
@@ -68,8 +74,35 @@ event TransferSingle(address indexed _operator, address indexed _from, address i
         return operatorApproval[_owner][_operator];
     }
 
-    function mintWithTokenHash(address to, uint256 tokenId) public returns (bool) {
+    function mintWithTokenHash(address to, bytes32 fileHash, bytes32 descriptionHash) public returns (bool) {
+
+        nonse++;
+
+        uint256 tokenId = nonse;
+        
         _mint(to, tokenId);
+
+        ItemStruct memory item = ItemStruct(tokenId, fileHash, descriptionHash, to);
+
+        allItems.push(item);
+        itemIndexes[tokenId] = allItemsLength;
+        allItemsLength++;
+
         return true;
     }
+
+    // function deleteUserAsset(address user, uint256 tokenId) private {
+    //     UserStruct storage u = ownedItems[user];
+    //     uint rowToDelete = u.assetPointers[tokenId];
+    //     u.assets[rowToDelete] = u.assets[u.assets.length-1];
+    //     u.hashes[rowToDelete] = u.hashes[u.hashes.length-1];
+    //     u.assets.length--;
+    //     u.hashes.length--;
+    // }
+
+    // function addUserAsset(address user, uint256 tokenId, bytes32 value) private {
+    //     ownedItems[user].assets.push(tokenId);
+    //     ownedItems[user].hashes.push(value);
+    //     ownedItems[user].assetPointers[tokenId] = ownedItems[user].assets.length - 1;
+    // }
 }
