@@ -11,23 +11,30 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <ImageView Class="card-img-top" Url="@viewModel.Link" />
-                    <div class="card-body">
-                        <h5 class="card-title">@viewModel.Title</h5>
-                        <p class="card-text">@viewModel.Description</p>
-                        <div class="form-group">
-                            <select class="form-control" bind="@AssetForExchange">
-                                <option value="default"></option>
-                                @foreach (var asset in availableAssets)
-                                {
-                                    <option value="@asset.Id.ToString()">@asset.Title</option>
-                                }
-                            </select>
+                    @if (viewModel == null)
+                    {
+                        <p><em>Loading...</em></p>
+                    }
+                    else
+                    {
+                        <ImageView Class="card-img-top" Url="@viewModel.Link" />
+                        <div class="card-body">
+                            <h5 class="card-title">@viewModel.Title</h5>
+                            <p class="card-text">@viewModel.Description</p>
+                            <div class="form-group">
+                                <select class="form-control" bind="@AssetForExchange">
+                                    <option value="default"></option>
+                                    @foreach (var asset in availableAssets)
+                                    {
+                                        <option value="@asset.Id.ToString()">@asset.Title</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary" onclick="@ExchangeAssetAsync">Exchange</button>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <button class="btn btn-primary" onclick="@ExchangeAssetAsync">Exchange</button>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
@@ -40,7 +47,7 @@
 
     private string AssetForExchange { get; set; } = "default";
 
-    private AssetViewModel viewModel = new AssetViewModel();
+    private AssetViewModel viewModel = null;
 
     private List<AssetViewModel> availableAssets = new List<AssetViewModel>();
 
