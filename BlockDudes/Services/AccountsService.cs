@@ -1,6 +1,7 @@
 ﻿using BlockDudes.Models;
 using Nethereum.ABI.FunctionEncoding.Attributes;
 using Nethereum.Contracts;
+using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3;
 using Nethereum.Web3.Accounts;
@@ -108,6 +109,54 @@ namespace BlockDudes.Services
         public AccountInfo GetCurrentAccount()
         {
             return _account;
+        }
+
+        public async Task UploadAssetAsync(string fileHash, string descriptionHash)
+        {
+            const string contractAddress = "0x6fBb44Fc86BA6c6D2D63D44794e6F1B1da3B1894";    //todo
+
+            var web3 = _web3ProviderService.GetWeb3();
+            var address = _account.Address;
+
+            var transferHandler = web3.Eth.GetContractTransactionHandler<UploadFunction>();
+
+            var upload = new UploadFunction
+            {
+                To = address,
+                FileHash = new HexBigInteger(fileHash),
+                DescriptionHash = new HexBigInteger(descriptionHash),
+            };
+
+            await transferHandler.SendRequestAndWaitForReceiptAsync(contractAddress, upload);
+        }
+
+        public async Task ExchangeAssetsAsync(string accountAddress, int tokenId1, int tokenId2)
+        {
+            const string contractAddress = "0x6fBb44Fc86BA6c6D2D63D44794e6F1B1da3B1894";    //todo
+
+            var web3 = _web3ProviderService.GetWeb3();
+            var address = _account.Address;
+
+            var exchangeHandler = web3.Eth.GetContractTransactionHandler<ExchangeFunction>();
+
+            var exchange = new ExchangeFunction
+            {
+                User1 = address,
+                User2 = accountAddress,
+                TokenId1 = tokenId1,
+                TokenId2 = tokenId2
+            };
+
+            await exchangeHandler.SendRequestAndWaitForReceiptAsync(contractAddress, exchange);
+        }
+        public Task<int> GetAllItemsLength()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Asset> GetItem(int index)
+        {
+            throw new NotImplementedException();
         }
     }
 

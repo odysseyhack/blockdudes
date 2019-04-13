@@ -15,5 +15,9 @@ namespace BlockDudes.Services
         Task<string> SendTransactionAsync<TFunctionMessage>(string contractAddress, TFunctionMessage functionMessage) where TFunctionMessage : FunctionMessage, new();
         List<TransactionInfo> GetCurrentChainPendingTransactions();
         Task<decimal> GetAccountTokenBalanceAsync(string address, string contractAddress, int numberOfDecimals = 18);
+        Task UploadAssetAsync(string fileHash, string descriptionHash);
+        Task ExchangeAssetsAsync(string accountAddress, int tokenId1, int tokenId2);
+        Task<int> GetAllItemsLength();
+        Task<Asset> GetItem(int index);
     }
 }

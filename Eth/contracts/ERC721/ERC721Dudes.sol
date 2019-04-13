@@ -11,8 +11,8 @@ contract ERC721Dudes is ERC721
 {
     struct ItemStruct {
         uint256 tokenId;
-        bytes32 fileHash;
-        bytes32 descriptionHash;
+        string fileHash;
+        string descriptionHash;
         address owner;
     }
 
@@ -74,7 +74,7 @@ contract ERC721Dudes is ERC721
         return operatorApproval[_owner][_operator];
     }
 
-    function mintWithTokenHash(address to, bytes32 fileHash, bytes32 descriptionHash) public returns (bool) {
+    function mintWithTokenHash(address to, string memory fileHash, string memory descriptionHash) public returns (bool) {
 
         nonse++;
 
