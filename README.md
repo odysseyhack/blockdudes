@@ -1,5 +1,5 @@
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
-[![BCH compliance](https://bettercodehub.com/edge/badge/odysseyhack/blockdudes?branch=master)](https://bettercodehub.com/)
+[![BCH compliance](https://bettercodehub.com/edge/badge/odysseyhack/blockdudes?branch=master&token=76fb020fb5d71d2171a8d2c0e4ca2662fc948a07)](https://bettercodehub.com/)
 
 ## BlockDudes
 ### Marketplace of the future
