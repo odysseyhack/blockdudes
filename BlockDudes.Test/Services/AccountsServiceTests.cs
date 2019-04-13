@@ -35,6 +35,19 @@ namespace BlockDudes.Test.Services
         }
 
         [Fact]
+        public void GetCurrentAccount_ReturnAccount()
+        {
+            // arrange
+            var expectedAccount = new Account(_testPrivateKey);
+
+            // act
+            var actualAccount = _accountsService.GetCurrentAccount();
+
+            // assert
+            Assert.Equal(expectedAccount.Address, actualAccount.Address);
+        }
+
+        [Fact]
         public void GetAccountEtherBalanceAsync_ReturnBalance()
         {
             // arrange
