@@ -14,18 +14,15 @@ namespace BlockDudes.Controllers
     {
         private readonly AssetService _assetService;
         private readonly IAccountsService _accountsService;
-        private readonly IHashService _hashService;
         private readonly IIpfsProviderService _ipfsProviderService;
 
         public UploadFileController(
             AssetService assetService,
             IAccountsService accountsService,
-            IHashService hashService,
             IIpfsProviderService ipfsProviderService)
         {
             _assetService = assetService;
             _accountsService = accountsService;
-            _hashService = hashService;
             _ipfsProviderService = ipfsProviderService;
         }
 
@@ -52,6 +49,7 @@ namespace BlockDudes.Controllers
 
                     var imageHash = await _ipfsProviderService.AddAsync(uploadImageBytes);
                     var imageDescriptionHash = await _ipfsProviderService.AddTextAsync(uploadImageDescription);
+                    await _accountsService.UploadAssetAsync(imageHash, imageDescriptionHash);
 
                     var imageBytes = await _ipfsProviderService.GetAsync(imageHash);
                     var imageDescription = await _ipfsProviderService.GetTextAsync(imageDescriptionHash);
