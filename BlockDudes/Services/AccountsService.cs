@@ -117,7 +117,9 @@ namespace BlockDudes.Services
 
         public async Task UploadAssetAsync(string fileHash, string descriptionHash)
         {
-            var web3 = _web3ProviderService.GetWeb3();
+            _privateKeyStorage.TryGetValue(_account.Address, out var pk);
+            var account = new Account(pk);
+            var web3 = _web3ProviderService.GetWeb3(account);
             var address = _account.Address;
 
             var uploadHandler = web3.Eth.GetContractTransactionHandler<UploadFunction>();
@@ -135,7 +137,9 @@ namespace BlockDudes.Services
 
         public async Task ExchangeAssetsAsync(string accountAddress, int tokenId1, int tokenId2)
         {
-            var web3 = _web3ProviderService.GetWeb3();
+            _privateKeyStorage.TryGetValue(_account.Address, out var pk);
+            var account = new Account(pk);
+            var web3 = _web3ProviderService.GetWeb3(account);
             var address = _account.Address;
 
             var exchangeHandler = web3.Eth.GetContractTransactionHandler<ExchangeFunction>();
