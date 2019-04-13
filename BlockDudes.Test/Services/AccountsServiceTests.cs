@@ -5,7 +5,6 @@ using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth;
 using Nethereum.Web3;
 using Nethereum.Web3.Accounts;
-using System.Numerics;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -44,7 +43,7 @@ namespace BlockDudes.Test.Services
             var actualAccount = _accountsService.GetCurrentAccount();
 
             // assert
-            Assert.Equal(expectedAccount.Address, actualAccount.Address);
+            Assert.Equal(expectedAccount.Address, actualAccount.Address, ignoreCase: true);
         }
 
         [Fact]
