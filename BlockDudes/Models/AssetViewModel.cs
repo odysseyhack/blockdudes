@@ -15,6 +15,8 @@ namespace BlockDudes.Models
 
         public DateTime UploadTime { get; set; }
 
+        public int Token { get; set; }
+
         [JsonIgnore]
         public string Link { get; set; }
     }

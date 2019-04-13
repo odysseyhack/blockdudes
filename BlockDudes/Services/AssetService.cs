@@ -46,6 +46,7 @@ namespace BlockDudes.Services
             var descriptionJson = await _ipfsProviderService.GetTextAsync(item.DescriptionHash);
 
             var model = JsonConvert.DeserializeObject<AssetViewModel>(descriptionJson);
+            model.Token = item.TokenId;
             model.Link = $"https://ipfs.infura.io/ipfs/{item.FileHash}";
 
             return model;

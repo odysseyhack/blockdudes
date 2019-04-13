@@ -1,8 +1,10 @@
 ﻿@page "/exchange/{Id:guid}"
 @using BlockDudes.Services
 @using BlockDudes.Models
+@using Microsoft.AspNetCore.Components.Services;
 @inject AssetService AssetService
 @inject IAccountsService AccountsService
+@inject IUriHelper uriHelper
 
 <div class="container">
     <div class="row">
@@ -23,7 +25,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-primary" onclick="@ExchangeAsset">Exchange</button>
+                            <button class="btn btn-primary" onclick="@ExchangeAssetAsync">Exchange</button>
                         </div>
                     </div>
                 </div>
@@ -53,12 +55,15 @@
             .First(it => it.Id == Id);
     }
 
-    private void ExchangeAsset()
+    private async Task ExchangeAssetAsync()
     {
         Guid asset;
         if (AssetForExchange != null && Guid.TryParse(AssetForExchange, out asset))
         {
+            var selectedModel = availableAssets.First(c => c.Id == asset);
+            await AccountsService.ExchangeAssetsAsync(viewModel.Address, selectedModel.Token, viewModel.Token);
 
+            uriHelper.NavigateTo("/marketplace");
         }
     }
 }
