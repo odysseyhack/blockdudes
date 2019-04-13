@@ -12,7 +12,7 @@ namespace BlockDudes.Services
         //TODO: Simple chainId workaround, this should be the ChainId from the connection, when adding the url we should get the chainId using rpc and add it here.
         public string ChainId => CurrentUrl;
 
-        public Web3 GetWeb3()
+        public IWeb3 GetWeb3()
         {
             if (Utils.IsValidUrl(CurrentUrl))
             {
@@ -25,7 +25,7 @@ namespace BlockDudes.Services
             return null;
         }
 
-        public Web3 GetWeb3(Account account)
+        public IWeb3 GetWeb3(Account account)
         {
             if (Utils.IsValidUrl(CurrentUrl))
             {

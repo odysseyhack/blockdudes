@@ -1,6 +1,5 @@
 ﻿using Nethereum.Web3;
 using Nethereum.Web3.Accounts;
-using System.Threading.Tasks;
 
 namespace BlockDudes.Services
 {
@@ -8,7 +7,7 @@ namespace BlockDudes.Services
     {
         string CurrentUrl { get; set; }
         string ChainId { get; }
-        Web3 GetWeb3();
-        Web3 GetWeb3(Account account);
+        IWeb3 GetWeb3();
+        IWeb3 GetWeb3(Account account);
     }
 }
