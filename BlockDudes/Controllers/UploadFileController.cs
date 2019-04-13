@@ -1,6 +1,7 @@
 ﻿using BlockDudes.Models;
 using BlockDudes.Services;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -37,6 +38,7 @@ namespace BlockDudes.Controllers
                 Id = Guid.NewGuid(),
                 Title = model.Title,
                 Description = model.Description,
+                UploadTime = DateTime.Now,
                 Address = _accountsService.GetCurrentAccount().Address
             };
 
@@ -44,11 +46,17 @@ namespace BlockDudes.Controllers
             {
                 using (var memoryStream = new MemoryStream())
                 {
-
                     await model.FormFile.CopyToAsync(memoryStream);
-                    var imageBytes = memoryStream.ToArray();
-                    var imageHash = _hashService.GetHash(imageBytes);
-                    await _ipfsProviderService.AddAsync(imageHash, imageBytes);
+                    var uploadImageBytes = memoryStream.ToArray();
+                    var uploadImageDescription = JsonConvert.SerializeObject(viewModel);
+
+                    var imageHash = await _ipfsProviderService.AddAsync(uploadImageBytes);
+                    var imageDescriptionHash = await _ipfsProviderService.AddTextAsync(uploadImageDescription);
+
+                    var imageBytes = await _ipfsProviderService.GetAsync(imageHash);
+                    var imageDescription = await _ipfsProviderService.GetTextAsync(imageDescriptionHash);
+
+                    var imageDescriptionModel = JsonConvert.DeserializeObject<AssetViewModel>(imageDescription);
 
                     viewModel.Image = new AssetImage
                     {

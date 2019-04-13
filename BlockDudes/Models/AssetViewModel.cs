@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace BlockDudes.Models
 {
@@ -15,6 +13,9 @@ namespace BlockDudes.Models
 
         public string Description { get; set; }
 
+        public DateTime UploadTime { get; set; }
+
+        [JsonIgnore]
         public AssetImage Image { get; set; }
     }
 }

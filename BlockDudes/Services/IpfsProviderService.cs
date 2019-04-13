@@ -13,28 +13,34 @@ namespace BlockDudes.Services
             _ipfsClient = ipfsClient;
         }
 
-        public async Task<string> AddAsync(string hash, byte[] input)
+        public async Task<string> AddAsync(byte[] input)
         {
-            Stream stream = new MemoryStream(input);
-            var fsn = await _ipfsClient.FileSystem.AddAsync(stream);
-            return hash;
+            var stream = new MemoryStream(input);
+            var fsn = await _ipfsClient.FileSystem.AddAsync(stream).ConfigureAwait(false);
+            return fsn.Id.Hash.ToString();
+        }
+
+        public async Task<string> AddTextAsync(string test)
+        {
+            var fsn = await _ipfsClient.FileSystem.AddTextAsync(test).ConfigureAwait(false);
+            return fsn.Id.Hash.ToString();
         }
 
         public async Task<byte[]> GetAsync(string hash)
         {
-            using (var stream = await _ipfsClient.FileSystem.GetAsync(hash))
+            using (var stream = await _ipfsClient.FileSystem.ReadFileAsync(hash).ConfigureAwait(false))
             {
-                byte[] buffer = new byte[16 * 1024];
                 using (var ms = new MemoryStream())
                 {
-                    int read;
-                    while ((read = stream.Read(buffer, 0, buffer.Length)) > 0)
-                    {
-                        ms.Write(buffer, 0, read);
-                    }
+                    stream.CopyTo(ms);
                     return ms.ToArray();
                 }
             }
+        }
+
+        public async Task<string> GetTextAsync(string hash)
+        {
+            return await _ipfsClient.FileSystem.ReadAllTextAsync(hash).ConfigureAwait(false);
         }
     }
 }
