@@ -1,5 +1,4 @@
 pragma solidity ^0.5.4;
-pragma experimental ABIEncoderV2;
 
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "openzeppelin-solidity/contracts/utils/Address.sol";
@@ -45,8 +44,8 @@ contract ERC721Dudes is ERC721
         safeTransferFrom(_user2, _user1, _id2);
     }
 
-    function getItem(uint index) public view returns (ItemStruct memory) {
-        return allItems[index];
+    function getItem(uint index) public view returns (uint256, string memory, string memory, address) {
+        return (allItems[index].tokenId, allItems[index].fileHash, allItems[index].descriptionHash, allItems[index].owner);
     }
 
     function getAllItemsLength() public view returns (uint) {
