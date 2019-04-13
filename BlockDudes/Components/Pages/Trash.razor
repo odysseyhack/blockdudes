@@ -1,0 +1,70 @@
+﻿@page "/trash"
+@using BlockDudes.Services
+@inject IAccountsService AccountService
+
+
+<div class="form-group">
+    <button class="btn btn-primary" onclick="@UploadAssetAsync">UploadAssetAsync</button>
+</div>
+
+<div class="form-group">
+    <label for="address">Address:</label>
+    <input class="form-control" id="address" bind="@address" />
+
+    <label for="address">Token1:</label>
+    <input class="form-control" id="address" type="number" bind="@token1" />
+
+    <label for="address">Token2:</label>
+    <input class="form-control" id="address" type="number" bind="@token2" />
+
+    <button class="btn btn-primary" onclick="@ExchangeAssetsAsync">ExchangeAssetsAsync</button>
+</div>
+
+<div class="form-group">
+    <button class="btn btn-primary" onclick="@GetAllItemsLength">GetAllItemsLength</button>
+</div>
+
+<div class="form-group">
+
+    <label for="address">Item index:</label>
+    <input class="form-control" id="address" type="number" bind="@itemIndex" />
+
+    <button class="btn btn-primary" onclick="@GetItem">GetItem</button>
+</div>
+
+@functions {
+    decimal balance;
+    string address;
+    int token1;
+    int token2;
+    int itemIndex;
+
+    public void GetBalance()
+    {
+        balance = AccountService.GetAccountEtherBalanceAsync().Result;
+    }
+
+    public async Task UploadAssetAsync()
+    {
+        await AccountService.UploadAssetAsync("QmPq1qC9xxspaxnAXFAdaJ5jtfxw5CWZauCYLgEbAk8Noc", "QmPq1qC9xxspaxnAXFAdaJ5jtfxw5CWZauCYLgEbAk8Noc");
+    }
+
+    public async Task ExchangeAssetsAsync()
+    {
+        await AccountService.ExchangeAssetsAsync(address, token1, token2);
+    }
+
+    public async Task GetAllItemsLength()
+    {
+        var length = await AccountService.GetAllItemsLength();
+
+        Console.WriteLine(length);
+    }
+
+    public async Task GetItem()
+    {
+        var asset = await AccountService.GetItem(itemIndex);
+
+        Console.WriteLine(asset);
+    }
+}
