@@ -1,7 +1,9 @@
 ﻿@page "/"
 @using BlockDudes.Models
 @using BlockDudes.Services
+@using Microsoft.AspNetCore.Components.Services;
 @inject IAccountsService AccountService
+@inject IUriHelper uriHelper
 
 <div>
     <label>Private key: </label>
@@ -16,5 +18,7 @@
     public void Login()
     {
         AccountService.AddAccount(exampleModel.PrivateKey);
+
+        uriHelper.NavigateTo("/marketplace");
     }
 }
