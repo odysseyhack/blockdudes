@@ -2,7 +2,7 @@
 using Nethereum.Contracts;
 using Nethereum.Hex.HexTypes;
 
-namespace BlockDudes.Services
+namespace BlockDudes.Blockchain.Functions
 {
     [Function("mintWithTokenHash", "bool")]
     public class UploadFunction : FunctionMessage

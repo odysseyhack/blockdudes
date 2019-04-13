@@ -1,4 +1,5 @@
-﻿using BlockDudes.Models;
+﻿using BlockDudes.Blockchain.Models;
+using BlockDudes.Models;
 using Nethereum.Contracts;
 using Nethereum.RPC.Eth.DTOs;
 using System.Collections.Generic;

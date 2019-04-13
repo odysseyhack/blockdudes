@@ -1,4 +1,6 @@
-﻿using BlockDudes.Models;
+﻿using BlockDudes.Blockchain.Functions;
+using BlockDudes.Blockchain.Models;
+using BlockDudes.Models;
 using Nethereum.ABI.FunctionEncoding.Attributes;
 using Nethereum.Contracts;
 using Nethereum.Hex.HexTypes;

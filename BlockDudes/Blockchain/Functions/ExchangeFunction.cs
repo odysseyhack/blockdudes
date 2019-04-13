@@ -1,7 +1,7 @@
 ﻿using Nethereum.ABI.FunctionEncoding.Attributes;
 using Nethereum.Contracts;
 
-namespace BlockDudes.Services
+namespace BlockDudes.Blockchain.Functions
 {
     [Function("exchangeTokens")]
     public class ExchangeFunction : FunctionMessage

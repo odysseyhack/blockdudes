@@ -1,6 +1,6 @@
 ﻿using Nethereum.ABI.FunctionEncoding.Attributes;
 
-namespace BlockDudes.Services
+namespace BlockDudes.Blockchain.Models
 {
     [FunctionOutput]
     public class Asset
@@ -8,11 +8,11 @@ namespace BlockDudes.Services
         [Parameter("uint256", "tokenId", 1)]
         public int TokenId { get; set; }
 
-        [Parameter("bytes32", "fileHash", 2)]
-        public byte[] FileHash { get; set; }
+        [Parameter("string", "fileHash", 2)]
+        public string FileHash { get; set; }
 
-        [Parameter("bytes32", "descriptionHash", 3)]
-        public byte[] DescriptionHash { get; set; }
+        [Parameter("string", "descriptionHash", 3)]
+        public string DescriptionHash { get; set; }
 
         [Parameter("address", "owner", 4)]
         public string Owner { get; set; }
