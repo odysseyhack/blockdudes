@@ -1,16 +1,21 @@
 ﻿@page "/addassets"
 
 <form method="post" enctype="multipart/form-data" action="api/uploadfile">
-    <div>
-        <label>Title: </label>
-        <input name="Title"/>
+    <div class="form-group">
+        <label for="title">Title: </label>
+        <input id="title" class="form-control" name="Title" />
     </div>
 
-    <div>
-        <label>Description: </label>
-        <input name="Description"/>
+    <div class="form-group">
+        <label for="description">Description: </label>
+        <input id="description" class="form-control" name="Description" />
     </div>
 
-    <input type="file" name="FormFile" />
-    <input type="submit" />
+    <div class="form-group">
+        <input class="form-control-file" type="file" name="FormFile" />
+    </div>
+
+    <div class="form-group">
+        <input class="btn btn-primary" type="submit" />
+    </div>
 </form>

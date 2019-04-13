@@ -1,14 +1,9 @@
-﻿<div class="marketplace-image"
-     style="background-image: url(@Url); height:@($"{Height}px"); width: @($"{Width}px");">
-</div>
+﻿<img class=@Class src=@Url />
 
 @functions {
     [Parameter]
-    int Width { get; set; }
-
-    [Parameter]
-    int Height { get; set; }
-
-    [Parameter]
     string Url { get; set; }
+
+    [Parameter]
+    string Class { get; set; }
 }

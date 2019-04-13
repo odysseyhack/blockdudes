@@ -2,10 +2,23 @@
 @using BlockDudes.Services
 @inject IAccountsService AccountService
 
-<button onclick="@GetBalance">Get My Balance</button>
-<div>@balance</div>
-<button onclick="@GetCurrentAccount">Get Current Account Address</button>
-<div>@address</div>
+<div class="form-group">
+    <label for="balance">Balance:</label>
+    <input disabled class="form-control" id="balance" bind="@balance" />
+</div>
+
+<div class="form-group">
+    <button class="btn btn-primary" onclick="@GetBalance">Get My Balance</button>
+</div>
+
+<div class="form-group">
+    <label for="address">Address:</label>
+    <input disabled class="form-control" id="address" bind="@address" />
+</div>
+
+<div class="form-group">
+    <button class="btn btn-primary" onclick="@GetCurrentAccount">Get Current Account Address</button>
+</div>
 
 @functions {
     decimal balance;

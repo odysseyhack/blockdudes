@@ -4,52 +4,36 @@
 @inject AssetService AssetService
 @inject IAccountsService AccountsService
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Asset @Id!</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Title:</td>
-            <td><input disabled bind="@viewModel.Title" /></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Description:</td>
-            <td><input disabled bind="@viewModel.Description" /></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Image:</td>
-            <td>
-                @if (viewModel.Image != null)
-                {
-                    <ImageView Url="@viewModel.Image.StringRepresentation" Width="300" Height="200" />
-                }
-            </td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Change for:</td>
-            <td>
-                <select bind="@AssetForExchange">
-                    <option value="default"></option>
-                    @foreach (var asset in availableAssets)
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    @if (viewModel.Image != null)
                     {
-                        <option value="@asset.Id.ToString()">@asset.Title</option>
+                        <ImageView Class="card-img-top" Url="@viewModel.Image.StringRepresentation" />
                     }
-                </select>
-            </td>
-            <td>
-                <button onclick="@ExchangeAsset">Exchange</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+                    <div class="card-body">
+                        <h5 class="card-title">@viewModel.Title</h5>
+                        <p class="card-text">@viewModel.Description</p>
+                        <div class="form-group">
+                            <select class="form-control" bind="@AssetForExchange">
+                                <option value="default"></option>
+                                @foreach (var asset in availableAssets)
+                                {
+                                    <option value="@asset.Id.ToString()">@asset.Title</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" onclick="@ExchangeAsset">Exchange</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @functions {
     [Parameter]
@@ -67,7 +51,7 @@
         var allModels = AssetService.GetAll();
 
         availableAssets = allModels.Where(
-            asset => asset.Address == currentAccount.Address).ToList();
+            asset => asset.Address != currentAccount.Address).ToList();
         viewModel = allModels
             .First(it => it.Id == Id);
     }
