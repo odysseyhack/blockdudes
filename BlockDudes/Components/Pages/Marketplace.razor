@@ -9,36 +9,32 @@
 {
     <p><em>Loading...</em></p>
 }
+else if (assets.Count == 0)
+{
+    <p>Marketplace is empty</p>
+}
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Image</th>
-                <th>Exchange</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="container">
+        <div class="row">
             @foreach (var asset in assets)
             {
-                <tr>
-                    <td>@asset.Title</td>
-                    <td>@asset.Description</td>
-                    <td>
+                <div class="col-6">
+                    <div class="card">
                         @if (asset.Image != null)
                         {
-                            <ImageView Url="@asset.Image.StringRepresentation" Width="200" Height="200"/>
+                            <ImageView Class="card-img-top" Url="@asset.Image.StringRepresentation" />
                         }
-                    </td>
-                    <td>
-                        <a title="Exchange" href="/exchange/@asset.Id">Exchange</a>
-                    </td>
-                </tr>
+                        <div class="card-body">
+                            <h5 class="card-title">@asset.Title</h5>
+                            <p class="card-text">@asset.Description</p>
+                            <a class="card-link" href="/exchange/@asset.Id">Exchange</a>
+                        </div>
+                    </div>
+                </div>
             }
-        </tbody>
-    </table>
+        </div>
+    </div>
 }
 
 @functions {
