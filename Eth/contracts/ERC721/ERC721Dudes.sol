@@ -11,7 +11,8 @@ contract ERC721Dudes is ERC721
 {
     struct ItemStruct {
         uint256 tokenId;
-        bytes32 digest;
+        bytes32 fileHash;
+        bytes32 descriptionHash;
         address owner;
     }
 
@@ -30,12 +31,18 @@ contract ERC721Dudes is ERC721
     function safeTransferFrom(address _from, address _to, uint256 _id) public {
 
         require(_to != address(0x0), "_to must be non-zero.");
-        require(_from == msg.sender || operatorApproval[_from][msg.sender] == true, "Need operator approval for 3rd party transfers.");
+        //require(_from == msg.sender || operatorApproval[_from][msg.sender] == true, "Need operator approval for 3rd party transfers.");
 
         
         uint index = itemIndexes[_id];
 
         allItems[index].owner = _to;
+    }
+
+    function exchangeTokens(address _user1, address _user2, uint256 _id1, uint256 _id2) public {
+
+        safeTransferFrom(_user1, _user2, _id1);
+        safeTransferFrom(_user2, _user1, _id2);
     }
 
     function getItem(uint index) public view returns (ItemStruct memory) {
@@ -67,7 +74,7 @@ contract ERC721Dudes is ERC721
         return operatorApproval[_owner][_operator];
     }
 
-    function mintWithTokenHash(address to, bytes32 value) public returns (bool) {
+    function mintWithTokenHash(address to, bytes32 fileHash, bytes32 descriptionHash) public returns (bool) {
 
         nonse++;
 
@@ -75,7 +82,7 @@ contract ERC721Dudes is ERC721
         
         _mint(to, tokenId);
 
-        ItemStruct memory item = ItemStruct(tokenId, value, to);
+        ItemStruct memory item = ItemStruct(tokenId, fileHash, descriptionHash, to);
 
         allItems.push(item);
         itemIndexes[tokenId] = allItemsLength;
