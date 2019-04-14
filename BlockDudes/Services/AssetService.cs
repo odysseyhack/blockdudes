@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlockDudes.Services
@@ -24,32 +25,44 @@ namespace BlockDudes.Services
         {
             var result = new List<AssetViewModel>();
             var length = await _accountsService.GetAllItemsLength();
-            for (int i = 0; i < length; i++)
+
+            Task<AssetViewModel>[] tasks = new Task<AssetViewModel>[length - 8];
+            for (int i = 8; i < length; i++)
             {
                 try
                 {
-                    var model = await GetViewModelByIndex(i);
-
-                    result.Add(model);
+                    var i1 = i - 8;
+                    tasks[i1] = GetViewModelByIndex(i1);
                 } catch (Exception ex)
                 {
                     // ignore it
                 }
             }
+
+            result = (await Task.WhenAll(tasks).ConfigureAwait(false)).Where(r => r != null).ToList();
             return result;
         }
 
         private async Task<AssetViewModel> GetViewModelByIndex(int index)
         {
-            var item = await _accountsService.GetItem(index);
+            try
+            {
+                var item = await _accountsService.GetItem(index);
 
-            var descriptionJson = await _ipfsProviderService.GetTextAsync(item.DescriptionHash);
+                var descriptionJson = await _ipfsProviderService.GetTextAsync(item.DescriptionHash);
 
-            var model = JsonConvert.DeserializeObject<AssetViewModel>(descriptionJson);
-            model.Token = item.TokenId;
-            model.Link = $"https://ipfs.infura.io/ipfs/{item.FileHash}";
+                var model = JsonConvert.DeserializeObject<AssetViewModel>(descriptionJson);
+                model.Token = item.TokenId;
+                model.Link = $"https://ipfs.infura.io/ipfs/{item.FileHash}";
 
-            return model;
+                return model;
+            }
+            catch(Exception exc)
+            {
+                Console.WriteLine(exc.Message);
+                return null;
+            }
+            
         }
     }
 }
