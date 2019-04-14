@@ -31,8 +31,8 @@ namespace BlockDudes.Services
             {
                 try
                 {
-                    var i1 = i - 8;
-                    tasks[i1] = GetViewModelByIndex(i1);
+                    var i1 = i;
+                    tasks[i - 8] = GetViewModelByIndex(i1);
                 } catch (Exception ex)
                 {
                     // ignore it
