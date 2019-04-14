@@ -79,7 +79,7 @@
         var allModels = await AssetService.GetAll();
 
         availableAssets = allModels.Where(
-            asset => asset.Address != currentAccount.Address).ToList();
+            asset => asset.Address == currentAccount.Address).ToList();
         viewModel = allModels
             .First(it => it.Id == Id);
     }
