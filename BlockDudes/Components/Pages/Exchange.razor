@@ -6,17 +6,22 @@
 @inject IAccountsService AccountsService
 @inject IUriHelper uriHelper
 
+<h1>Exchange</h1>
 <div class="container">
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-body">
-                    @if (viewModel == null)
-                    {
-                        <p><em>Loading...</em></p>
-                    }
-                    else
-                    {
+                @if (viewModel == null)
+                {
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="card-body">
                         <ImageView Class="card-img-top" Url="@viewModel.Link" />
                         <div class="card-body">
                             <h5 class="card-title">@viewModel.Title</h5>
@@ -31,11 +36,26 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-primary" onclick="@ExchangeAssetAsync">Exchange</button>
+
+                                <button class="btn btn-primary" onclick="@ExchangeAssetAsync">
+                                    @if (isExchanging)
+                                    {
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="false"></span>
+                                        <span>
+                                            Exchanging...
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span>
+                                            Exchange
+                                        </span>
+                                    }
+                                </button>
                             </div>
                         </div>
-                    }
-                </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
@@ -50,6 +70,8 @@
     private AssetViewModel viewModel = null;
 
     private List<AssetViewModel> availableAssets = new List<AssetViewModel>();
+
+    private bool isExchanging = false;
 
     protected override async Task OnInitAsync()
     {
@@ -67,6 +89,7 @@
         Guid asset;
         if (AssetForExchange != null && Guid.TryParse(AssetForExchange, out asset))
         {
+            isExchanging = true;
             var selectedModel = availableAssets.First(c => c.Id == asset);
             await AccountsService.ExchangeAssetsAsync(viewModel.Address, selectedModel.Token, viewModel.Token);
 

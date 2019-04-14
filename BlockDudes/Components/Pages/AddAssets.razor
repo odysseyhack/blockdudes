@@ -1,6 +1,6 @@
 ﻿@page "/addassets"
 
-<form method="post" enctype="multipart/form-data" action="api/uploadfile">
+<form method="post" enctype="multipart/form-data" onsubmit="@OnSubmit" action="api/uploadfile">
     <div class="form-group">
         <label for="title">Title: </label>
         <input id="title" class="form-control" name="Title" />
@@ -16,6 +16,29 @@
     </div>
 
     <div class="form-group">
-        <input class="btn btn-primary" type="submit" />
+        <button class="btn btn-primary" type="submit">
+            @if (isSubmitting)
+            {
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="false"></span>
+                <span>
+                    Loading...
+                </span>
+            }
+            else
+            {
+                <span>
+                    Load Asset
+                </span>
+            }
+        </button>
     </div>
 </form>
+
+@functions {
+    private bool isSubmitting = false;
+
+    private void OnSubmit()
+    {
+        isSubmitting = true;
+    }
+}

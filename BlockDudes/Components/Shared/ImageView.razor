@@ -1,4 +1,4 @@
-﻿<img class=@Class src=@Url />
+﻿<img style=@GetImgStyle() class=@Class src=@Url />
 
 @functions {
     [Parameter]
@@ -6,4 +6,16 @@
 
     [Parameter]
     string Class { get; set; }
+
+    [Parameter]
+    string Height { get; set; }
+
+    private string GetImgStyle()
+    {
+        if (string.IsNullOrWhiteSpace(Height))
+        {
+            return "";
+        }
+        return $"height: {Height}";
+    }
 }
